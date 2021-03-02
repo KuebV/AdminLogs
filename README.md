@@ -7,14 +7,25 @@ Config Example:
 {
   "IsEnabled": true,
   "WebhookURL": "https://discord.com/api/webhooks/",
-  "Username": "Logger",
+  "Username": "Admin Logger",
   "PlayerJoin": true,
-  "PlayerDeath": true,
   "RoundStart": true,
   "RoundEnd": true,
-  "OnChat": true
+  "OnChat": true,
+  "PlayerCommands": true
 }
 ```
+### Supported Features:
+- On Join
+- On Round End
+- On Player Command
+- On Chat Message
+
+### To be added:
+- On Leave
+- On Round Start
+- On Ban & Kick
+- On Player Death
 
 ### Required Dependencies: (You can find these in the release.tar.gz)
 `DSharp4Webhook.dll`
