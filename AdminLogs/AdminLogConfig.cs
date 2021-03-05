@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CensusAPI.Interfaces;
 
 namespace AdminLogs
@@ -13,6 +13,7 @@ namespace AdminLogs
         public bool RoundEnd { get; set; } = true;
         public bool OnChat { get; set; } = true;
         public bool PlayerCommands { get; set; } = true;
+        public bool OnChangeClass { get; set; } = true;
 
 
     }

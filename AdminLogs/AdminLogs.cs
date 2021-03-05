@@ -9,7 +9,7 @@ namespace AdminLogs
     {
         public override string Name => "AdminLogs";
 
-        public override Version Version => new Version(1, 0, 0);
+        public override Version Version => new Version(1, 1, 0);
 
         public override string Author => "KuebV";
 
@@ -32,5 +32,6 @@ namespace AdminLogs
             Log.Info($"Config Value : " +
                 $"\nURL : {Instance.Config.WebhookURL}");
         }
+
     }
 }

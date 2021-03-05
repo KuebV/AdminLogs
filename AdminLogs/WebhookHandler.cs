@@ -13,13 +13,24 @@ namespace AdminLogs
     //Thanks BuildBoy12 from Repo ErrorHandler for this. I don't understand webhook
     public class WebhookHandler
     {
-        internal void SendMessage(string EmbedTitle, string FieldTitle, string FieldValue)
+        internal void SendMessage(string EmbedTitle, string FieldTitle, string FieldValue, uint Color)
         {
-            AdminLogs.Instance.Webhook.SendMessage(messageBuilder(EmbedTitle, FieldTitle, FieldValue).Build()).Queue((result, isSuccessful) =>
+            AdminLogs.Instance.Webhook.SendMessage(threePartMessage(EmbedTitle, FieldTitle, FieldValue, Color).Build()).Queue((result, isSuccessful) =>
             {
                 if (!isSuccessful)
                 {
-                    Log.Info("Was not able to send webhook!");
+                    Log.Error("Unable to send webhook");
+                }
+            });
+        }
+
+        internal void SendTitle(string Title, uint Color)
+        {
+            AdminLogs.Instance.Webhook.SendMessage(onePartMessage(Title, Color).Build()).Queue((result, isSuccessful) =>
+            {
+                if (!isSuccessful)
+                {
+                    Log.Error("Unable to send webhook");
                 }
             });
         }
@@ -28,7 +39,7 @@ namespace AdminLogs
         private static readonly EmbedFieldBuilder FieldBuilder = ConstructorProvider.GetEmbedFieldBuilder();
         private static readonly MessageBuilder MessageBuilder = ConstructorProvider.GetMessageBuilder();
 
-        private MessageBuilder messageBuilder(string EmbedTitle, string FieldTitle, string FieldValue)
+        private MessageBuilder threePartMessage(string EmbedTitle, string FieldTitle, string FieldValue, uint Color)
         {
             EmbedBuilder.Reset();
             FieldBuilder.Reset();
@@ -42,7 +53,24 @@ namespace AdminLogs
             FieldBuilder.Value = FieldValue;
             EmbedBuilder.AddField(FieldBuilder.Build());
 
+            EmbedBuilder.Color = Color;
+
             EmbedBuilder.Title = EmbedTitle;
+            MessageBuilder.AddEmbed(EmbedBuilder.Build());
+            return MessageBuilder;
+        }
+
+        private MessageBuilder onePartMessage(string Title, uint Color)
+        {
+            EmbedBuilder.Reset();
+            FieldBuilder.Reset();
+            MessageBuilder.Reset();
+
+            MessageBuilder.Username = AdminLogs.Instance.Config.Username;
+            MessageBuilder.AvatarUrl = "https://discordapp.com/assets/1cbd08c76f8af6dddce02c5138971129.png";
+
+            EmbedBuilder.Title = Title;
+            EmbedBuilder.Color = Color;
             MessageBuilder.AddEmbed(EmbedBuilder.Build());
             return MessageBuilder;
         }
