@@ -20,12 +20,12 @@ Config Example:
 - On Round End
 - On Player Command
 - On Chat Message
+- On Round Start
+- On Player Death
 
 ### To be added:
 - On Leave
-- On Round Start
 - On Ban & Kick
-- On Player Death
 
 ### Required Dependencies: (You can find these in the release.tar.gz)
 `DSharp4Webhook.dll`
